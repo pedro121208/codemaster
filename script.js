@@ -1,29 +1,29 @@
 // Controle do  menu mobile
 const menuIcon = document.querySelector('#menu-icon');
-const navLit = document.querySelector('.navlist');
+const navList = document.querySelector('.navlist');
 
 menuIcon.addEventListener('click', () => {
     menuIcon.classList.toggle('bx-x');
-    navLit.classList.toggle('open');
+    navList.classList.toggle('open');
 
     // bloquear scroll quando menu aberto
-    document.body.style.overflow = navlist.classList.contains('open') ? 'hidden' : 'auto';
+    document.body.style.overflow = navList.classList.contains('open') ? 'hidden' : 'auto';
 });
 
 // fechar menu ao clicar em links
 document.querySelectorAll('.navlist a').forEach(link => {
     link.addEventListener('click', () => {
         menuIcon.classList.remove('bx-x');
-        navLit.classList.remove('open');
+        navList.classList.remove('open');
         document.body.style.overflow = 'auto';
     });
 });
 
 // fechar menu ao rolar 
 window.addEventListener('scroll', () => {
-    if(navlist.classList.contains('open')) {
+    if(navList.classList.contains('open')) {
         menuIcon.classList.remove('bx-x');
-        navlist.classList.remove('open');
+        navList.classList.remove('open');
         document.body.style.overflow = 'auto';
     }
 });
@@ -33,7 +33,7 @@ const navLinks = document.querySelectorAll('.navlist a');
 
 // funcao para adicionar a classe "active ao link clicado
 function activeLink() {
-    navLinks.forEach(intem => item.classList.remove('active')); //remove a classe "active" de todos os links 
+    navLinks.forEach(item => item.classList.remove('active')); //remove a classe "active" de todos os links 
     this.classList.add('active'); // adiciona a classe "active" ao link clicado
 }
 
@@ -105,7 +105,7 @@ updatetextColor();
 //seleciona a seção home e aplica uma animção de fade-in
 const homeSection = document.querySelector('#home');
 homeSection.style.opacity = '0';
-homeSection.style.transform = 'translate7(20px)';
+homeSection.style.transform = 'translateY(20px)';
 homeSection.style.transition = 'opacity 1s ease, transform 1s ease';
 
 setTimeout(() => {
@@ -115,11 +115,11 @@ setTimeout(() => {
 
 // animação das seções
 //seleciona todas as seções e aplica animações de entrada
-const sections = document.querySelector('section');
+const sections = document.querySelectorAll('section');
 
-sections.forEach((sections, index) => {
-    sections.style.opacity = '0';
-    sections.style.transition = 'opacity 1s, transform 1s';
+sections.forEach((section, index) => {
+    section.style.opacity = '0';
+    section.style.transition = 'opacity 1s, transform 1s';
 
     //aplica diferentes transformações com base no indice da seção
     if(index !== 0) {
@@ -151,10 +151,10 @@ document.querySelector('.top a').addEventListener('click', (e) => {
 
 // carrossel de projetos
 // seleciona os elementos do carrossel
-const carouselSlide = document.querySelector('.carousel-slides');
+const carouselSlides = document.querySelector('.carousel-slides');
 const slides = document.querySelectorAll('.carousel-slide');
 const prevButton = document.querySelector('.carousel-button.prev');
-const nextbutton = document.querySelector('.carousel-button.netx');
+const nextButton = document.querySelector('.carousel-button.next');
 let currentSlide = 0;
 let autoSlideInterval;
 
@@ -162,7 +162,7 @@ let autoSlideInterval;
 function showSlide(slideIndex) {
     slides.forEach(slide => {
         slide.classList.remove('active');
-        slide.style.displat = 'none';
+        slide.style.display = 'none';
     });
 
     // ajusta o indice do slide para garantir que ele esteja dento dos limites
@@ -177,26 +177,26 @@ function showSlide(slideIndex) {
 }
 
 //função para atualizar a posição do carrosel
-function upadateSlidePosition() {
-    const slideWidth = slides [0].offsetWidth;
-    carouselSlide.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+function updateSlidePosition() {
+    const slideWidth = slides[0].offsetWidth;
+    carouselSlides.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
 }
 
 //funcao para avancar para o proximo slide
-function nextSlied() {
+function nextSlide() {
     showSlide(currentSlide + 1);
-    resetAutoSLide(); //reiicia o intervalo de transição
+    resetAutoSlide(); //reiicia o intervalo de transição
 }
 
 //função para voltar ao slide anterior
 function prevSlide(){
     showSlide(currentSlide - 1);
-    resetAutoSLide(); //reinicia o intervalo de transição
+    resetAutoSlide(); //reinicia o intervalo de transição
 }
 
 //função para iniciar a transição automarica dos slides
 function startAutoSlide() {
-    autoSlideInterval = setInterval(nextSLide, 5000); //avanca o slide a cada 5 segundos
+    autoSlideInterval = setInterval(nextSlide, 5000); //avanca o slide a cada 5 segundos
 }
 
 //função para reniciar a transição automatica
@@ -206,7 +206,7 @@ function resetAutoSlide() {
 }
 
 //adiciona eventos de clique aos botoes de navegaçao do carrossel
-nextbutton.addEventListener('click', nextSLide);
+nextButton.addEventListener('click', nextSlide);
 prevButton.addEventListener('click', prevSlide);
 
 //inicializa o carrossel ao carregar a pagina
@@ -216,17 +216,17 @@ window.addEventListener('load', () => {
 
     //atualiza a posicao do carrossel ao redimensionar a janela 
     window.addEventListener('resize', () => {
-        upadateSlidePosition();
+        updateSlidePosition();
     });
 });
 
 //pausa a transição automatica ao passar o mouse sobre o carrossel 
-carouselSlide.parentElement.addEventListener('mouseenter', () => {
+carouselSlides.parentElement.addEventListener('mouseenter', () => {
     clearInterval(autoSlideInterval);
 });
 
 //retoma a transição automatica ao remover o mouse do carrossel
-carouselSlide.parentElement.addEventListener('mouseleave', startAutoSlide);
+carouselSlides.parentElement.addEventListener('mouseleave', startAutoSlide);
 
 //formulario de contato
 //seleciona o formulario de contato e a mensahem de agradecimento
