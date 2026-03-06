@@ -228,3 +228,29 @@ carouselSlide.parentElement.addEventListener('mouseenter', () => {
 //retoma a transição automatica ao remover o mouse do carrossel
 carouselSlide.parentElement.addEventListener('mouseleave', startAutoSlide);
 
+//formulario de contato
+//seleciona o formulario de contato e a mensahem de agradecimento
+const contactForm = document.getElementById('contactForm');
+const thankYouMessage = document.getElementById('thankYouMessage');
+
+//adiciona um evento de envio ao formulario
+contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    thankYouMessage.style.display = 'block'; //exibe a mensagem de agradecimento
+
+    //envia os dados do formulario usando fetch API
+    const formData = new FormData(contactForm);
+    fetch(contactForm.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept' : 'application/json' }
+    })
+    .then(response => {
+        if(response.ok) {
+            setTimeout(() => window.location.reload(), 2000); //recarrega a pagina apos 2 segundos
+        } else {
+            alert('Erro ao enviar formulario. Tente novamento.');
+        }
+    })
+    .catch(() => alert('Erro na conexão. Tente novamente'))
+})
