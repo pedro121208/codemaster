@@ -112,3 +112,33 @@ setTimeout(() => {
     homeSection.style.opacity = '1';
     homeSection.style.transform = 'translateY(0)';
 }, 100);
+
+// animação das seções
+//seleciona todas as seções e aplica animações de entrada
+const sections = document.querySelector('section');
+
+sections.forEach((sections, index) => {
+    sections.style.opacity = '0';
+    sections.style.transition = 'opacity 1s, transform 1s';
+
+    //aplica diferentes transformações com base no indice da seção
+    if(index !== 0) {
+        if(index === 1) section.style.transform = 'translateY(100px)';
+        else if (index === 2) section.style.transform = 'scale(0.8)';
+        else if (index === 3) section.style.transform = 'rotateY(90deg)';
+    }
+});
+
+//observar para animar as seções ao rolar a pagina
+const observar = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'none';
+        }
+    });
+});
+
+//observa cada seção para aplicar a animação
+sections.forEach((section) => observar.observe(section));
+
