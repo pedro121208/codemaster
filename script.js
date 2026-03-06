@@ -39,6 +39,7 @@ function activeLink() {
 
 // adiciona um evento de clique a cada link de navegação
 navLinks.forEach(item => item.addEventListener('click', activeLink));
+
 // alternar modo claro/escuro
 // função para alternar entre os temas claro e escuro
 function toggleMode() {
@@ -58,4 +59,45 @@ const savedtheme = localStorage.getItem('theme');
 if(savedtheme) {
     document.documentElement.classList.toggle('light', savedtheme === 'light');
 }
+
+// animação do titulo
+// seleciona o elemento do titulo e define variaveis para a animação
+const titleElement = document.querySelector('#name');
+const text = "CODEMASTER";
+let index = 0;
+let isTyping = true;
+let currentColor = document.documentElement.classList.contains('light') ? 'black' : '#fff';
+
+// funcao para animar o texto do titulo (digitação e apagamento)
+function animateText(){
+    if(isTyping) {
+        if(index < text.length) {
+            titleElement.textContent = text.slice(0, index + 1); //adiciona uma letra ao titulo
+            index++;
+        } else{
+            isTyping = false; //alterna para o modo de apagamento 
+        }
+    } else {
+        if(index > 1) {
+            titleElement.textContent = text.slice(0, index - 1); //remove uma letra do titulo
+            index--;
+        } else {
+            isTyping = true; //alterna para o modo de digitação
+            //alterna a cor do texto entre branco/preto e laranja
+            currentColor = currentColor === (document.documentElement.classList.contains ('light') ? 'black' : '#fff') ? '#c94c16' : (document.documentElement.classList.contains ('light') ? 'black' : '#fff');
+            titleElement.style.color = currentColor;
+        }
+    }
+    setTimeout(animateText, 300); //define um intervalo para a proxima animação
+}
+
+//função para atualizar a cor do texto do titulo com base no tema 
+function updatetextColor(){
+    currentColor = document.documentElement.classList.contains('light') ? 'black' : '#fff';
+    titleElement.style.color = currentColor;
+}
+
+// inicia a animação do titulo ao carregar a pagina
+document.addEventListener('DOMContentLoaded', animateText);
+updatetextColor();
 
